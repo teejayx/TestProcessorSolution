@@ -16,7 +16,7 @@ public class MiddleVowelFilterTests
 	[InlineData("cry", false)]
 	public void ShouldRemove_MiddleVowel(string word, bool expected)
 	{
-		var result = _filter.ShouldFilter(word);
+		var result = _filter.ShouldRemoveWord(word);
 		Assert.Equal(expected, result);
 	}
 }

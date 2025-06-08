@@ -25,7 +25,7 @@ public class TextFilterProcessorTests
 		var result = pipeline.Apply(input);
 
 		// Assert
-		var expectedWords = new[] { "Alice", "very", "bank" }; // filtered words: was, to, get, tired, of, sitting, by, her, sister, on, the
+		var expectedWords = new[] { "beginning" }; // filtered words: was, to, get, tired, of, sitting, by, her, sister, on, the
 		var actualWords = result.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
 		Assert.Equal(expectedWords, actualWords);

@@ -3,6 +3,6 @@
 
 	public interface ITextFilter
     {
-	  bool ShouldFilter(string word);
+	  bool ShouldRemoveWord(string word);
     }
 

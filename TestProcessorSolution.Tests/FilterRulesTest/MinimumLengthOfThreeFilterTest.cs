@@ -12,7 +12,7 @@ public class MinimumLengthOfThreeFilterTest
 	[InlineData("tree", false)]
 	public void ShouldRemove_ShortWords(string word, bool expected)
 	{
-		var result = _filter.ShouldFilter(word);
+		var result = _filter.ShouldRemoveWord(word);
 		Assert.Equal(expected, result);
 	}
  }

@@ -1,7 +1,7 @@
 ﻿namespace TestProcessorSolution.ConsoleApp.FilterRules;
 
-	public class LetterTFilter : ITextFilter
+public class LetterTFilter : ITextFilter
 {
-	  public bool ShouldFilter(string word) => word.ToLower().Contains('t');
-    }
+	public bool ShouldRemoveWord(string word) => word.ToLower().Contains('t');
+}
 

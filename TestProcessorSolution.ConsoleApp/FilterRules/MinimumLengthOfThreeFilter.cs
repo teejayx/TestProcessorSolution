@@ -2,6 +2,6 @@
 
 public class MinimumLengthOfThreeFilter : ITextFilter
 {
-	public bool ShouldFilter(string word) => word.Length < 3;
+	public bool ShouldRemoveWord(string word) => word.Length < 3;
 }
 
