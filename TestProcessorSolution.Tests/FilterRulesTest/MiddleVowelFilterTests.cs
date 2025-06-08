@@ -1,7 +1,9 @@
-﻿namespace TestProcessorSolution.Tests.FilterRulesTest;
+﻿using TestProcessorSolution.ConsoleApp.FilterRules;
+namespace TestProcessorSolution.Tests.FilterRulesTest;
 
-	
-	public class MiddleVowelFilterTests
+
+
+public class MiddleVowelFilterTests
 	{
 		private readonly MiddleVowelFilter _filter = new();
 
