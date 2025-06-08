@@ -1,11 +1,8 @@
 ﻿
-
-
 using TestProcessorSolution.ConsoleApp.FilterRules;
 namespace TestProcessorSolution.ConsoleApp;
-
-    public class TextFilterProcessor
-	{
+ public class TextFilterProcessor
+{
 	private readonly IEnumerable<ITextFilter> _filters;
 
 	public TextFilterProcessor(IEnumerable<ITextFilter> filters)
@@ -22,5 +19,5 @@ namespace TestProcessorSolution.ConsoleApp;
 
 		return string.Join(' ', filtered);
 	}
-   }
+}
 
