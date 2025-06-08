@@ -1,8 +1,8 @@
 ﻿namespace TestProcessorSolution.ConsoleApp.FilterRules;
 
 
-	public class MiddleVowelFilter : IFilter
-{
+	public class MiddleVowelFilter : ITextFilter
+    {
 		private static readonly HashSet<char> Vowels = new() { 'a', 'e', 'i', 'o', 'u' };
 
 		public bool ShouldFilter(string word)
@@ -18,5 +18,5 @@
 				: Vowels.Contains(w[mid]);
 		}
 
-   }
+    }
 
