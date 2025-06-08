@@ -1,11 +1,11 @@
 ﻿namespace TestProcessorSolution.ConsoleApp.FilterRules;
 
 
-	public class MiddleVowelFilter
-	{
+	public class MiddleVowelFilter : IFilter
+{
 		private static readonly HashSet<char> Vowels = new() { 'a', 'e', 'i', 'o', 'u' };
 
-		public bool ShouldRemove(string word)
+		public bool ShouldFilter(string word)
 		{
 			if (string.IsNullOrWhiteSpace(word)) return false;
 			var w = word.ToLower();
