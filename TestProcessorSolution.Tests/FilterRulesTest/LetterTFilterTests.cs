@@ -1,8 +1,7 @@
-﻿namespace TestProcessorSolution.Tests.FilterRulesTest;
+﻿using TestProcessorSolution.ConsoleApp.FilterRules;
+namespace TestProcessorSolution.Tests.FilterRulesTest;
 
-using TestProcessorSolution.ConsoleApp.FilterRules;
-
-public class LetterTFilterTests
+     public class LetterTFilterTests
 	{
 			private readonly LetterFilter _filter = new();
 
