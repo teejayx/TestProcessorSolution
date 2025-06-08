@@ -9,19 +9,8 @@ namespace TestProcessorSolution.ConsoleApp
 	{
 		public static async Task Main()
 		{
-			ITextReader reader = new FileReader();
-			var text = await reader.ReadFromFileAsync("Assets/input.txt");
-
-			var filters = new ITextFilter[]
-			{
-			new MiddleVowelFilter(),
-			new MinimumLengthOfThreeFilter(),
-			new LetterTFilter()
-			};
-
-			var pipeline = new TextFilterProcessor(filters);
-			var result = pipeline.Apply(text);
-
+			var processor = new TextFilterProcessor();
+			var result = await processor.ProcessFileAsync("./Assets/input.txt");
 			Console.WriteLine(result);
 		}
 	}

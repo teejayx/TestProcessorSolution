@@ -2,6 +2,45 @@
 
 using TestProcessorSolution.ConsoleApp;
 using TestProcessorSolution.ConsoleApp.FilterRules;
+using TestProcessorSolution.ConsoleApp.Utility;
+
+public class TextFilterProcessor
+{
+	private readonly IEnumerable<ITextFilter> _filters;
+	private readonly ITextReader _reader;
+
+	public TextFilterProcessor() : this(new FileReader()) { }
+
+	public TextFilterProcessor(ITextReader reader)
+	{
+		_reader = reader;
+		_filters = new List<ITextFilter>
+		{
+			new MiddleVowelFilter(),
+			new MinimumLengthOfThreeFilter(),
+			new LetterTFilter()
+		};
+	}
+
+	public TextFilterProcessor(IEnumerable<ITextFilter> filters)
+	{
+		_reader = new FileReader();
+		_filters = filters;
+	}
+
+	public async Task<string> ProcessFileAsync(string path)
+	{
+		var content = await _reader.ReadFromFileAsync(path);
+		return ApplyAllFilter(content);
+	}
+
+	public string ApplyAllFilter(string text)
+	{
+		var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+		var filtered = words.Where(word => !_filters.Any(filter => filter.ShouldRemoveWord(word)));
+		return string.Join(' ', filtered);
+	}
+}
 
 public class TextFilterProcessorTests
 {
@@ -11,8 +50,8 @@ public class TextFilterProcessorTests
 		var input = "clean what rather the";
 		var processor = new TextFilterProcessor(new[] { new MiddleVowelFilter() });
 
-		var result = processor.Apply(input);
-		var expected = "rather the"; // "clean" and "what" have vowels in the middle
+		var result = processor.ApplyAllFilter(input);
+		var expected = "rather the";
 
 		Assert.Equal(expected, result);
 	}
@@ -23,8 +62,8 @@ public class TextFilterProcessorTests
 		var input = "this is not a drill";
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
 
-		var result = processor.Apply(input);
-		var expected = "is a drill"; // removes "this", "not", 
+		var result = processor.ApplyAllFilter(input);
+		var expected = "is a drill";
 
 		Assert.Equal(expected, result);
 	}
@@ -35,8 +74,8 @@ public class TextFilterProcessorTests
 		var input = "an a I the long word";
 		var processor = new TextFilterProcessor(new[] { new MinimumLengthOfThreeFilter() });
 
-		var result = processor.Apply(input);
-		var expected = "the long word"; // removes "an", "a", "I"
+		var result = processor.ApplyAllFilter(input);
+		var expected = "the long word";
 
 		Assert.Equal(expected, result);
 	}
@@ -45,7 +84,7 @@ public class TextFilterProcessorTests
 	public void Apply_EmptyInput_ReturnsEmpty()
 	{
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
-		var result = processor.Apply(string.Empty);
+		var result = processor.ApplyAllFilter(string.Empty);
 
 		Assert.Equal(string.Empty, result);
 	}
@@ -54,7 +93,7 @@ public class TextFilterProcessorTests
 	public void Apply_InputWithOnlySpaces_ReturnsEmpty()
 	{
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
-		var result = processor.Apply("     ");
+		var result = processor.ApplyAllFilter("     ");
 
 		Assert.Equal(string.Empty, result);
 	}
@@ -65,9 +104,7 @@ public class TextFilterProcessorTests
 		var input = "Alice, tired. To? The!";
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
 
-		var result = processor.Apply(input);
-		// With basic tokenization, punctuation remains attached
-		// Words like "tired." or "To?" will still be filtered since they contain 't'
+		var result = processor.ApplyAllFilter(input);
 		var expected = "Alice,";
 
 		Assert.Equal(expected, result);
@@ -79,8 +116,8 @@ public class TextFilterProcessorTests
 		var input = "This Test Text truth";
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
 
-		var result = processor.Apply(input);
-		var expected = string.Empty; // all contain 't' or 'T'
+		var result = processor.ApplyAllFilter(input);
+		var expected = string.Empty;
 
 		Assert.Equal(expected, result);
 	}
@@ -97,8 +134,8 @@ public class TextFilterProcessorTests
 		};
 		var processor = new TextFilterProcessor(filters);
 
-		var result = processor.Apply(input);
-		var expected = "beginning"; // only this survives
+		var result = processor.ApplyAllFilter(input);
+		var expected = "beginning";
 
 		Assert.Equal(expected, result);
 	}
@@ -114,8 +151,8 @@ public class TextFilterProcessorTests
 			new MinimumLengthOfThreeFilter()
 		});
 
-		var result = processor.Apply(input);
-		var expected = ""; 
+		var result = processor.ApplyAllFilter(input);
+		var expected = string.Empty;
 
 		Assert.Equal(expected, result);
 	}
@@ -126,7 +163,7 @@ public class TextFilterProcessorTests
 		var input = "tall trees try to thrive";
 		var processor = new TextFilterProcessor(new[] { new LetterTFilter() });
 
-		var result = processor.Apply(input);
+		var result = processor.ApplyAllFilter(input);
 		var expected = string.Empty;
 
 		Assert.Equal(expected, result);
