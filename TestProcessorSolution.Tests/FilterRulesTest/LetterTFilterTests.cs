@@ -1,9 +1,10 @@
 ﻿namespace TestProcessorSolution.Tests.FilterRulesTest;
 
-	
-	public class LetterTFilterTests
+using TestProcessorSolution.ConsoleApp.FilterRules;
+
+public class LetterTFilterTests
 	{
-			private readonly LetterTFilter _filter = new();
+			private readonly LetterFilter _filter = new();
 
 			[Theory]
 			[InlineData("tree", true)]
@@ -12,7 +13,7 @@
 			[InlineData("run", false)]
 			public void ShouldRemove_LetterT(string word, bool expected)
 			{
-				var result = _filter.ShouldRemove(word);
+				var result = _filter.ShouldFilter(word);
 				Assert.Equal(expected, result);
 			}
     }
