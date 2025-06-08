@@ -1,10 +1,28 @@
-﻿namespace TestProcessorSolution.ConsoleApp
+﻿
+using TestProcessorSolution.ConsoleApp.FilterRules;
+using TestProcessorSolution.ConsoleApp.Utility;
+
+namespace TestProcessorSolution.ConsoleApp
 {
+
 	internal class Program
 	{
-		static void Main(string[] args)
+		public static async Task Main()
 		{
-			Console.WriteLine("Hello, World!");
+			ITextReader reader = new FileReader();
+			var text = await reader.ReadFromFileAsync("Assets/input.txt");
+
+			var filters = new ITextFilter[]
+			{
+			new MiddleVowelFilter(),
+			new MinimumLengthOfThreeFilter(),
+			new LetterTFilter()
+			};
+
+			var pipeline = new TextFilterProcessor(filters);
+			var result = pipeline.Apply(text);
+
+			Console.WriteLine(result);
 		}
 	}
 }

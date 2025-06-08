@@ -2,6 +2,6 @@
 
 public interface ITextReader
 {
-	Task<string> ReadAsync(string path);
+	Task<string> ReadFromFileAsync(string path);
 }
 
