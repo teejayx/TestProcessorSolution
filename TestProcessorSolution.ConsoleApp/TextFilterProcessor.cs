@@ -35,7 +35,8 @@ namespace TestProcessorSolution.ConsoleApp;
 
 	public string ApplyAllFilter(string text)
 	{
-		var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+		var words = text.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?' },
+					  StringSplitOptions.RemoveEmptyEntries);
 
 		var filtered = words
 			.Where(word => !_filters.Any(filter => filter.ShouldRemoveWord(word)));
