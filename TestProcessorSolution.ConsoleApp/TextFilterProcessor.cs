@@ -1,6 +1,5 @@
 ﻿
-using System.Data;
-using System.Reflection.PortableExecutable;
+
 using TestProcessorSolution.ConsoleApp.FilterRules;
 using TestProcessorSolution.ConsoleApp.Utility;
 namespace TestProcessorSolution.ConsoleApp;
